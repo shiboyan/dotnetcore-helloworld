@@ -25,22 +25,13 @@ steps:
 - task: DotNetCoreCLI@1
   displayName: Build
   inputs:
-    command: build
-    projects: '**/*.csproj'
-    arguments: '--configuration Release'
+    command: build --configuration $(buildConfiguration)
 - task: DotNetCoreCLI@2
   displayName: 'Run the unit test'
   inputs:
     command: test
     projects: '**/*Tests/*.csproj'
-    arguments: '--configuration $(buildConfiguration)' 
-- task: CopyFiles@2
-  displayName: 'Copy Files to: $(Build.ArtifactStagingDirectory)'
-  inputs:
-    SourceFolder: '$(Build.SourcesDirectory)'
-    Contents: |
-     **/*
-    TargetFolder: '$(Build.ArtifactStagingDirectory)'       
+    arguments: '--configuration $(buildConfiguration)'    
 - task: PublishBuildArtifacts@1
 
 

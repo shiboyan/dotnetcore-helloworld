@@ -69,7 +69,7 @@ steps:
 - task: AzureRmWebAppDeployment@3
   inputs:
     azureSubscription: 'minadote'
-    WebAppName: 'minadotnethello'
+    WebAppName: 'mina10000'
     Package: $(System.ArtifactsDirectory)/*.zip            
 
 

@@ -42,4 +42,17 @@ steps:
      **/DotNetCoreHelloWorld/*
     TargetFolder: '$(Build.ArtifactStagingDirectory)'       
 - task: PublishBuildArtifacts@1
+- task: DotNetCoreCLI@2
+  displayName: 'Release zip file'
+  inputs:
+    command: publish
+    publishWebProjects: True
+    arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+    zipAfterPublish: True
+- task: AzureRmWebAppDeployment@3
+  inputs:
+    azureSubscription: 'Pay-As-You-Go'
+    WebAppName: 'dotnethello100'
+    Package: $(System.ArtifactsDirectory)/**/*.zip    
+
 

@@ -41,17 +41,11 @@ steps:
     Contents: |
      **/*
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
-# - task: DotNetCoreCLI@2
-#   inputs:
-#     command: publish
-#     arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
-#     zipAfterPublish: True            
-- task: PublishBuildArtifacts@1
-
-- task: AzureRmWebAppDeployment@3
+- task: DotNetCoreCLI@2
   inputs:
-    azureSubscription: 'minadote'
-    WebAppName: 'minadotnethello'
-    Package: $(Build.ArtifactStagingDirectory)/DotNetCoreHelloWorld
+    command: publish
+    arguments: '--output $(Build.ArtifactStagingDirectory)'
+    zipAfterPublish: True
+- task: PublishBuildArtifacts@1              
 
 

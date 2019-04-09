@@ -74,7 +74,7 @@ stages:
         azureSubscription: 'minadote'
         # WebAppName: 'minadot10086'
         WebAppName: 'minasleep'
-        packageForLinux: $(System.ArtifactsDirectory)/*.zip
-  #     # Package: $(System.DefaultWorkingDirectory)/**/*.zip            
+        # packageForLinux: $(System.ArtifactsDirectory)/*.zip
+        Package: $(System.DefaultWorkingDirectory)/**/*.zip            
 
 

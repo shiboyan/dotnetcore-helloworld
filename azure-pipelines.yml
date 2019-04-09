@@ -56,6 +56,7 @@ steps:
   inputs:
     azureSubscription: 'minadote'
     WebAppName: 'minadot10086'
-    Package: $(System.ArtifactsDirectory)/*.zip            
+    # Package: $(System.ArtifactsDirectory)/*.zip
+    Package: $(System.DefaultWorkingDirectory)/**/*.zip            
 
 

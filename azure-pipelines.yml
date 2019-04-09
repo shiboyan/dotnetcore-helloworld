@@ -54,13 +54,22 @@ steps:
 - task: PublishBuildArtifacts@1
   inputs:
     pathtoPublish: '$(Build.ArtifactStagingDirectory)' 
-    artifactName: 'drop' 
-    #publishLocation: 'Container' # Options: container, filePath
-    targetPath: '$(System.ArtifactsDirectory)/DotNetCoreHelloWorld.zip'
+    # artifactName: 'drop' 
+    # #publishLocation: 'Container' # Options: container, filePath
+    # targetPath: '$(System.ArtifactsDirectory)/DotNetCoreHelloWorld.zip'
+- task: DotNetCoreCLI@2
+  inputs:
+    command: publish
+    # our repository seems has no web project
+    publishWebProjects: False
+    # We should specify your .csproj in project(s) option.
+    projects: "" 
+    arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+    zipAfterPublish: True    
 - task: AzureRmWebAppDeployment@3
   inputs:
     azureSubscription: 'minadote'
     WebAppName: 'minadotnethello'
-    Package: $(System.ArtifactsDirectory)/DotNetCoreHelloWorld.zip            
+    Package: $(System.ArtifactsDirectory)/*.zip            
 
 

@@ -41,10 +41,10 @@ steps:
     Contents: |
      **/*
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
-- task: PublishBuildArtifacts@1
-  inputs:
-    pathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    artifactName: drop
+# - task: PublishBuildArtifacts@1
+#   inputs:
+#     pathtoPublish: '$(Build.ArtifactStagingDirectory)'
+#     artifactName: drop
 # - task: DownloadBuildArtifacts@0
 #   inputs:
 #     buildType: 'current'
@@ -56,7 +56,7 @@ steps:
     pathtoPublish: '$(Build.ArtifactStagingDirectory)' 
     artifactName: 'drop' 
     #publishLocation: 'Container' # Options: container, filePath
-    targetPath: '$(System.ArtifactsDirectory)/**/*.zip '
+    targetPath: '$(System.ArtifactsDirectory)/**/*.zip'
 - task: AzureRmWebAppDeployment@3
   inputs:
     azureSubscription: 'minadote'

@@ -40,7 +40,7 @@ steps:
     SourceFolder: '$(Build.SourcesDirectory)'
     Contents: |
      **/*
-    TargetFolder: '$(Build.ArtifactStagingDirectory)'        
+    TargetFolder: '$(System.ArtifactsDirectory)/**/*.zip'        
 - task: PublishBuildArtifacts@1
 
 

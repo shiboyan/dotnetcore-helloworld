@@ -44,7 +44,7 @@ steps:
 - task: PublishBuildArtifacts@1
 - task: AzureRmWebAppDeployment@3
   inputs:
-    azureSubscription: 'Pay-As-You-Go (86f52f74-c775-4e76-8275-9555c60f41a0)'
+    azureSubscription: '$(Parameters.ConnectedServiceName)'
     WebAppName: 'minadotnethello'
     Package: $(System.ArtifactsDirectory)/**/*.zip
 

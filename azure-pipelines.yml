@@ -28,8 +28,16 @@ steps:
     command: build
     projects: '**/*.csproj'
     arguments: '--configuration Release'
-- task: PublishTest@0
+- task: DotNetCoreCLI@2
   inputs:
     command: test
     projects: '**/*Tests/*.csproj'
-    arguments: '--configuration $(buildConfiguration)'    
+    arguments: '--configuration $(buildConfiguration)' 
+- task: CopyFiles@0
+  displayName: 'Copy Files to: $(Build.ArtifactStagingDirectory)'
+  inputs:
+    SourceFolder: '$(Build.SourcesDirectory)'
+    Contents: |
+     **/*
+     !.git/**/*
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'       

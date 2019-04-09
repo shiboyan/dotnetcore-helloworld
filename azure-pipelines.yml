@@ -56,11 +56,11 @@ steps:
     pathtoPublish: '$(Build.ArtifactStagingDirectory)' 
     artifactName: 'drop' 
     #publishLocation: 'Container' # Options: container, filePath
-    targetPath: '$(System.ArtifactsDirectory)'
+    targetPath: '$(System.ArtifactsDirectory)/**/*.zip '
 - task: AzureRmWebAppDeployment@3
   inputs:
     azureSubscription: 'minadote'
     WebAppName: 'minadotnethello'
-    Package: $(System.ArtifactsDirectory)/**/*.zip             
+    Package: $(System.ArtifactsDirectory)/**/*.zip            
 
 

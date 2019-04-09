@@ -2,18 +2,16 @@
 # Build and test ASP.NET Core projects targeting .NET Core.
 # Add steps that run tests, create a NuGet package, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
-
-trigger:
-- master
-
-pool:
-  vmImage: 'Ubuntu-16.04'
-  
-
-variables:
-  buildConfiguration: 'Release'
 jobs:
-- job: Build
+- job: Build  
+  trigger:
+  - master
+  pool:
+    vmImage: 'Ubuntu-16.04'
+  variables:
+    buildConfiguration: 'Release'
+# jobs:
+# - job: Build
   steps:
   - task: DotNetCoreInstaller@0
     inputs:
@@ -74,3 +72,5 @@ jobs:
       WebAppName: 'minasleep'
       packageForLinux: $(System.ArtifactsDirectory)/*.zip
   #     # Package: $(System.DefaultWorkingDirectory)/**/*.zip            
+
+

@@ -16,7 +16,7 @@ variables:
 steps:
 - task: DotNetCoreInstaller@0
   inputs:
-    version: '2.1.300' # replace this value with the version that you need for your project
+    version: '2.1.300'
 - script: dotnet restore
 - task: DotNetCoreCLI@0
   inputs:
@@ -41,32 +41,18 @@ steps:
     Contents: |
      **/DotNetCoreHelloWorld/*
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
-# - task: PublishBuildArtifacts@1
-#   inputs:
-#     pathtoPublish: '$(Build.ArtifactStagingDirectory)'
-#     artifactName: drop
-# - task: DownloadBuildArtifacts@0
-#   inputs:
-#     buildType: 'current'
-#     downloadType: 'single'
-#     artifactName: 'drop'
-#     downloadPath: '$(System.ArtifactsDirectory)'
 - task: PublishBuildArtifacts@1
   inputs:
     pathtoPublish: '$(Build.ArtifactStagingDirectory)' 
-    # artifactName: 'drop' 
-    # #publishLocation: 'Container' # Options: container, filePath
-    # targetPath: '$(System.ArtifactsDirectory)/DotNetCoreHelloWorld.zip'
 - task: DotNetCoreCLI@2
   inputs:
     command: publish
-    # our repository seems has no web project
     publishWebProjects: False
-    # We should specify your .csproj in project(s) option.
     projects: "" 
     arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
     zipAfterPublish: True    
 - task: AzureRmWebAppDeployment@3
+  displayName: 'Deploy code to webapp'
   inputs:
     azureSubscription: 'minadote'
     WebAppName: 'mina10000'

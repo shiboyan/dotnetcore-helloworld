@@ -63,6 +63,7 @@ jobs:
       arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
       zipAfterPublish: True    
 - job: Deploy
+  dependsOn: build
   steps:
   - task: AzureRmWebAppDeployment@4
     displayName: 'Deploy code to webapp'

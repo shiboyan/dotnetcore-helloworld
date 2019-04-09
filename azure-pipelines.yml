@@ -34,14 +34,21 @@ steps:
     command: test
     projects: '**/*Tests/*.csproj'
     arguments: '--configuration $(buildConfiguration)'
-- task: CopyFiles@2
-  displayName: 'Copy Files to: $(Build.ArtifactStagingDirectory)'
+# - task: CopyFiles@2
+#   displayName: 'Copy Files to: $(Build.ArtifactStagingDirectory)'
+#   inputs:
+#     SourceFolder: '$(Build.SourcesDirectory)'
+#     Contents: |
+#      **/*
+#     TargetFolder: '$(Build.ArtifactStagingDirectory)'
+- task: DotNetCoreCLI@2
   inputs:
-    SourceFolder: '$(Build.SourcesDirectory)'
-    Contents: |
-     **/*
-    TargetFolder: '$(Build.ArtifactStagingDirectory)'        
+    command: publish
+    publishWebProjects: True
+    arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+    zipAfterPublish: True            
 - task: PublishBuildArtifacts@1
+
 - task: AzureRmWebAppDeployment@3
   inputs:
     azureSubscription: 'minadote'

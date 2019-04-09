@@ -38,10 +38,10 @@ steps:
   displayName: 'Copy Files to: $(Build.ArtifactStagingDirectory)'
   inputs:
     SourceFolder: '$(Build.SourcesDirectory)'
-    # Contents: |
-    #  **/DotNetCoreHelloWorld/*
     Contents: |
-     **/*
+     **/DotNetCoreHelloWorld/*
+    # Contents: |
+    #  **/*
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
 - task: ArchiveFiles@2
   inputs:

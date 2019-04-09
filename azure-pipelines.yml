@@ -41,11 +41,15 @@ steps:
     Contents: |
      **/*
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
-- task: DotNetCoreCLI@2
+- task: PublishBuildArtifacts@1
   inputs:
-    command: publish
-    arguments: '--output $(Build.ArtifactStagingDirectory)'
-    zipAfterPublish: True
-- task: PublishBuildArtifacts@1              
+    pathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    artifactName: drop
+- task: DownloadBuildArtifacts@0
+  inputs:
+    buildType: 'current'
+    downloadType: 'single'
+    artifactName: 'drop'
+    downloadPath: '$(System.ArtifactsDirectory)'           
 
 

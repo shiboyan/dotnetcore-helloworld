@@ -55,7 +55,7 @@ steps:
   displayName: 'Deploy code to webapp'
   inputs:
     azureSubscription: 'minadote'
-    WebAppName: 'mina10000'
+    WebAppName: 'minadot10086'
     Package: $(System.ArtifactsDirectory)/*.zip            
 
 

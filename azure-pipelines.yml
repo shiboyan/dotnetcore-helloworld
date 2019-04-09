@@ -14,11 +14,11 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
-- task: DotNetCoreInstaller
+- task: DotNetCoreInstaller@0
   inputs:
     version: '2.1.300' # replace this value with the version that you need for your project
 - script: dotnet restore
-- task: DotNetCoreCLI
+- task: DotNetCoreCLI@0
   inputs:
     command: restore
     projects: '**/*.csproj'

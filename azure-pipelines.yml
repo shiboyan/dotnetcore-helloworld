@@ -51,11 +51,11 @@ steps:
     projects: "" 
     arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
     zipAfterPublish: True    
-- task: AzureRmWebAppDeployment@3
-  displayName: 'Deploy code to webapp'
-  inputs:
-    azureSubscription: 'minadote'
-    WebAppName: 'minadot10086'
-    Package: $(System.ArtifactsDirectory)/*.zip            
+# - task: AzureRmWebAppDeployment@3
+#   displayName: 'Deploy code to webapp'
+#   inputs:
+#     azureSubscription: 'minadote'
+#     WebAppName: 'minadot10086'
+#     Package: $(System.ArtifactsDirectory)/*.zip            
 
 

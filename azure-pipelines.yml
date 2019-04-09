@@ -38,6 +38,5 @@ steps:
   inputs:
     SourceFolder: '$(Build.SourcesDirectory)'
     Contents: |
-     **/*
-     !.git/**/*
+     **/DotNetCoreHelloWorld/*
     TargetFolder: '$(Build.ArtifactStagingDirectory)'       

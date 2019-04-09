@@ -52,6 +52,6 @@ steps:
   inputs:
     azureSubscription: 'minadote'
     WebAppName: 'minadotnethello'
-    Package: $(Build.ArtifactStagingDirectory)/*
+    Package: $(Build.ArtifactStagingDirectory)/DotNetCoreHelloWorld
 
 

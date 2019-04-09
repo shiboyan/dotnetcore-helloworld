@@ -44,7 +44,6 @@ steps:
 - task: PublishBuildArtifacts@1
 - task: AzureRmWebAppDeployment@3
   inputs:
-    azureSubscription: 'my azureSubscription'
     WebAppName: 'minadotnethello'
     Package: $(System.ArtifactsDirectory)/**/*.zip
 

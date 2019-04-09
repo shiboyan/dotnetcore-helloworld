@@ -51,7 +51,6 @@ steps:
     zipAfterPublish: True
 - task: AzureRmWebAppDeployment@3
   inputs:
-    azureSubscription: 'Pay-As-You-Go'
     WebAppName: 'dotnethello100'
     Package: $(System.ArtifactsDirectory)/**/*.zip    
 

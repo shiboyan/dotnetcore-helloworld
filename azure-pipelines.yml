@@ -12,64 +12,65 @@ pool:
 
 variables:
   buildConfiguration: 'Release'
-
-steps:
-- task: DotNetCoreInstaller@0
-  inputs:
-    version: '2.1.300'
-- script: dotnet restore
-- task: DotNetCoreCLI@0
-  inputs:
-    command: restore
-    projects: '**/*.csproj'
-- task: DotNetCoreCLI@1
-  displayName: Build
-  inputs:
-    command: build
-    projects: '**/*.csproj'
-    arguments: '--configuration Release'
-- task: DotNetCoreCLI@2
-  displayName: 'Run the unit test'
-  inputs:
-    command: test
-    projects: '**/*Tests/*.csproj'
-    arguments: '--configuration $(buildConfiguration)'
-- task: CopyFiles@2
-  displayName: 'Copy Files to: $(Build.ArtifactStagingDirectory)'
-  inputs:
-    SourceFolder: '$(Build.SourcesDirectory)'
-    Contents: |
-     **/DotNetCoreHelloWorld/*
-    # Contents: |
-    #  **/*
-    TargetFolder: '$(Build.ArtifactStagingDirectory)'
-- task: ArchiveFiles@2
-  inputs:
-    rootFolderOrFile: '$(Build.ArtifactStagingDirectory)/DotNetCoreHelloWorld' 
-    includeRootFolder: false
-    archiveType: 'zip' # Options: zip, 7z, tar, wim
-    #tarCompression: 'gz' # Optional. Options: gz, bz2, xz, none
-    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip' 
-    #replaceExistingArchive: true 
-    #verbose: # Optional
-    #quiet: # Optional    
-- task: PublishBuildArtifacts@1
-  inputs:
-    pathtoPublish: '$(Build.ArtifactStagingDirectory)' 
-- task: DotNetCoreCLI@2
-  inputs:
-    command: publish
-    publishWebProjects: False
-    projects: "" 
-    arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
-    zipAfterPublish: True    
-- task: AzureRmWebAppDeployment@4
-  displayName: 'Deploy code to webapp'
-  inputs:
-    azureSubscription: 'minadote'
-    # WebAppName: 'minadot10086'
-    WebAppName: 'minasleep'
-    packageForLinux: $(System.ArtifactsDirectory)/*.zip
-#     # Package: $(System.DefaultWorkingDirectory)/**/*.zip            
-
-
+jobs:
+- job: Build
+  steps:
+  - task: DotNetCoreInstaller@0
+    inputs:
+      version: '2.1.300'
+  - script: dotnet restore
+  - task: DotNetCoreCLI@0
+    inputs:
+      command: restore
+      projects: '**/*.csproj'
+  - task: DotNetCoreCLI@1
+    displayName: Build
+    inputs:
+      command: build
+      projects: '**/*.csproj'
+      arguments: '--configuration Release'      
+  - task: DotNetCoreCLI@2
+    displayName: 'Run the unit test'
+    inputs:
+      command: test
+      projects: '**/*Tests/*.csproj'
+      arguments: '--configuration $(buildConfiguration)'
+  - task: CopyFiles@2
+    displayName: 'Copy Files to: $(Build.ArtifactStagingDirectory)'
+    inputs:
+      SourceFolder: '$(Build.SourcesDirectory)'
+      Contents: |
+       **/DotNetCoreHelloWorld/*
+      # Contents: |
+      #  **/*
+      TargetFolder: '$(Build.ArtifactStagingDirectory)'
+  - task: ArchiveFiles@2
+    inputs:
+      rootFolderOrFile: '$(Build.ArtifactStagingDirectory)/DotNetCoreHelloWorld' 
+      includeRootFolder: false
+      archiveType: 'zip' # Options: zip, 7z, tar, wim
+      #tarCompression: 'gz' # Optional. Options: gz, bz2, xz, none
+      archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip' 
+      #replaceExistingArchive: true 
+      #verbose: # Optional
+      #quiet: # Optional    
+  - task: PublishBuildArtifacts@1
+    inputs:
+      pathtoPublish: '$(Build.ArtifactStagingDirectory)' 
+  - task: DotNetCoreCLI@2
+    inputs:
+      command: publish
+      publishWebProjects: False
+      projects: "" 
+      arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+      zipAfterPublish: True    
+- job: Deploy
+  steps:
+  - task: AzureRmWebAppDeployment@4
+    displayName: 'Deploy code to webapp'
+    inputs:
+      azureSubscription: 'minadote'
+      # WebAppName: 'minadot10086'
+      WebAppName: 'minasleep'
+      packageForLinux: $(System.ArtifactsDirectory)/*.zip
+  #     # Package: $(System.DefaultWorkingDirectory)/**/*.zip            

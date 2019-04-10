@@ -18,16 +18,13 @@ steps:
   inputs:
     version: '2.1.300'
 - script: dotnet restore
-- task: DotNetCoreCLI@0
-  inputs:
-    command: restore
-    projects: '**/*.csproj'
-- task: DotNetCoreCLI@1
+- task: DotNetCoreCLI@2
   displayName: Build
   inputs:
     command: build
     projects: '**/*.csproj'
     # arguments: '--configuration Release'
+    arguments: '--configuration $(BuildConfiguration)'
 # - task: DotNetCoreCLI@2
 #   displayName: 'Run the unit test'
 #   inputs:
@@ -56,13 +53,13 @@ steps:
 # - task: PublishBuildArtifacts@1
 #   inputs:
 #     pathtoPublish: '$(Build.ArtifactStagingDirectory)' 
-# - task: DotNetCoreCLI@2
-#   inputs:
-#     command: publish
-#     publishWebProjects: False
-#     projects: "" 
-#     arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
-#     zipAfterPublish: True
+- task: DotNetCoreCLI@2
+  inputs:
+    command: publish
+    publishWebProjects: true
+    arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+    zipAfterPublish: true
+
 - task: PublishBuildArtifacts@1
   inputs:
     pathtoPublish: '$(Build.ArtifactStagingDirectory)' 

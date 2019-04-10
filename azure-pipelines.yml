@@ -56,7 +56,9 @@ steps:
     projects: '**/*.csproj'
     arguments: '--configuration $(BuildConfiguration) --output $(build.artifactstagingdirectory)/FunctionalTests'
     zipAfterPublish: false
-    modifyOutputPath: false    
+    modifyOutputPath: false
+- script: mv $(Build.ArtifactStagingDirectory)/Implementation.zip  $(Build.ArtifactStagingDirectory)/Implementation
+- script: mv $(Build.ArtifactStagingDirectory)/UnitTests.zip  $(Build.ArtifactStagingDirectory)/UnitTests      
 - task: PublishBuildArtifacts@1
   inputs:
     pathtoPublish: '$(Build.ArtifactStagingDirectory)'     

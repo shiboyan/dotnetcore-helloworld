@@ -14,10 +14,15 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
-- task: DotNetCoreInstaller@0
+# - task: DotNetCoreInstaller@0
+#   inputs:
+#     version: '2.1.300'
+# - script: dotnet restore
+- task: DotNetCoreCLI@2
+  displayName: Restore
   inputs:
-    version: '2.1.300'
-- script: dotnet restore
+    command: restore
+    projects: '$(Parameters.RestoreBuildProjects)'
 - task: DotNetCoreCLI@2
   displayName: Build
   inputs:
@@ -44,7 +49,7 @@ steps:
 - task: DotNetCoreCLI@2
   inputs:
     command: publish
-    publishWebProjects: false
+    publishWebProjects: true
     projects: '**/*.csproj'
     arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
     zipAfterPublish: true
